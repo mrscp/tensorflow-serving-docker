@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  serve_model:
+    image: tensorflow/serving:latest
+    container_name: mnist
+    restart: unless-stopped
+    ports:
+      - 8501:8501
+    volumes:
+      - "/home/sadid/PycharmProjects/tensorflow-serving-docker/models:/models/mnist"
+      - "/home/sadid/PycharmProjects/tensorflow-serving-docker/models.config:/models/models.config"
+    environment:
+      - 'model_config_file=/models/models.config'
+      - 'model_config_file_poll_wait_seconds=60'
+      - 'MODEL_NAME=mnist'
